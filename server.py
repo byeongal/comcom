@@ -3,8 +3,8 @@ from flask import Flask
 app = Flask(__name__)
 
 # 상수 정의 부분
-SERVER_IP = '127.0.0.1'
-SERVER_PORT = 5000
+SERVER_IP = '0.0.0.0'
+SERVER_PORT = 25000
 MIN_NUMBER = 0
 MAX_NUMBER = 1000000
 
@@ -15,7 +15,7 @@ prime_list = []
 def hello_user():
     return 'Hello ComCom'
 
-@app.route('/<number>')
+@app.route('/input=<number>')
 def get_number(number):
     number = int(number)
     if not MIN_NUMBER <= number <= MAX_NUMBER:
@@ -23,15 +23,13 @@ def get_number(number):
     if number == 0 or number == 1:
         return '가장큰 소인수를 구할 수 없습니다.'
     idx = 0
-    number_list = []
-    origin = number
+    last_number = None
     while number != 1:
         while number % prime_list[idx] == 0:
-            number_list.append(str(prime_list[idx]))
+            last_number = prime_list[idx]
             number //= prime_list[idx]
         idx += 1
-    output = f'{origin}를 소인수 분해 하면 ' + 'x'.join(number_list) + f'입니다. 따라서 가장 큰 소인수는 {number_list[-1]} 입니다.'
-    return output
+    return f'output {last_number}'
 
 # 에라토스테네스의 체
 def init():
