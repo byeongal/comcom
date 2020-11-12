@@ -53,3 +53,8 @@ docker build -t comcom
 ```shell
 docker run --rm -d -p <serverport>:5000 comcom
 ```
+
+```shell
+wget https://github.com/byeongal/comcom/blob/main/docker-compose.yml
+docker-compose up -d 
+```
