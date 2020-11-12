@@ -23,28 +23,33 @@ Good Luck!
 
 ### 사용법
 1. git repository 를 다운로드 받고, 필요한 파일을 설치 한다.
-```shell script
+```shell
 git clone https://github.com/byeongal/comcom.git
 cd comcom
 pip install requirements.txt
 ```
 
-2. `server.py` 파일에서 아래의 부분을 사용자에 맞게 설정 한다.
-```python
-# 상수 정의 부분
-SERVER_IP = '127.0.0.1'
-SERVER_PORT = 5000
-MIN_NUMBER = 0
-MAX_NUMBER = 1000000
-```
-
-3. `server.py`파일을 실행한다.
+2. `server.py`파일을 실행한다.
 ```shell
-python server.py
+python server.py --ip=<0.0.0.0> --port=<5000>
 ```
 
-4. 웹브라우저에서 설정한 IP와 PORT에 맞게 접속을 하고 / 뒤에 소인수 분해할 숫자를 넣어준다.
+3. 웹브라우저에서 설정한 IP와 PORT에 맞게 접속을 하고 / 뒤에 소인수 분해할 숫자를 넣어준다.
 
 ex) http://203.246.112.132:25000/input=13195
 
+### 사용법(도커)
+1. Dockerfile을 다운로드 받는다.
+```shell
+wget https://github.com/byeongal/comcom/blob/main/Dockerfile
+```
 
+2. Dockerfile을 빌드 한다.
+```shell
+docker build -t comcom
+```
+
+3. 빌드한 도커 이미지를 실행 한다
+```shell
+docker run --rm -d -p <serverport>:5000 comcom
+```
