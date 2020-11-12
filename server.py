@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 # 상수 정의 부분
 SERVER_IP = '0.0.0.0'
-SERVER_PORT = 25000
+SERVER_PORT = 5000
 MIN_NUMBER = 0
 MAX_NUMBER = 1000000
 
