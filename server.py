@@ -1,10 +1,11 @@
+import getopt
+from sys import argv
+
 from flask import Flask
 
 app = Flask(__name__)
 
 # 상수 정의 부분
-SERVER_IP = '0.0.0.0'
-SERVER_PORT = 5000
 MIN_NUMBER = 0
 MAX_NUMBER = 1000000
 
@@ -13,23 +14,47 @@ prime_list = []
 
 @app.route('/')
 def hello_user():
-    return 'Hello ComCom'
+    html = """\
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>COMCOM Coding Interview</title>
+    </head>
+    <body>
+        <p>How to Use</p>
+        <p>http://serverip:serverport/input=number</p>
+        <p>ex) http://203.246.112.132:25000/input=12345</p>
+    </body>
+    """
+    return html
 
 @app.route('/input=<number>')
 def get_number(number):
     number = int(number)
+    html = '''\
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>COMCOM Coding Interview</title>
+    </head>
+        <body>
+        <p>{}</p>
+    </body>
+    '''
     if not MIN_NUMBER <= number <= MAX_NUMBER:
-        return f'숫자의 범위가 {MIN_NUMBER} 부터 {MAX_NUMBER} 까지 주어져야 합니다.'
-    if number == 0 or number == 1:
-        return '가장큰 소인수를 구할 수 없습니다.'
-    idx = 0
-    last_number = None
-    while number != 1:
-        while number % prime_list[idx] == 0:
-            last_number = prime_list[idx]
-            number //= prime_list[idx]
-        idx += 1
-    return f'output {last_number}'
+        output = f'숫자의 범위가 {MIN_NUMBER} 부터 {MAX_NUMBER} 까지 주어져야 합니다.'
+    elif number == 0 or number == 1:
+        output = '가장큰 소인수를 구할 수 없습니다.'
+    else:
+        idx = 0
+        last_number = None
+        while number != 1:
+            while number % prime_list[idx] == 0:
+                last_number = prime_list[idx]
+                number //= prime_list[idx]
+            idx += 1
+        output = f'output {last_number}'
+    return html.format(output)
 
 # 에라토스테네스의 체
 def init():
@@ -48,6 +73,17 @@ def init():
             prime_list.append(number)
     del prime_bool_list
 
-if __name__ == '__main__':
+def main(args):
     init()
-    app.run(host=SERVER_IP, port=SERVER_PORT)
+    optlist, args = getopt.getopt(args[1:], '', ['ip=', 'port='])
+    server_ip = '0.0.0.0'
+    server_port = 5000
+    for opt, arg in optlist:
+        if opt == '--ip':
+            server_ip = arg
+        elif opt == '--port':
+            server_port = int(arg)
+    app.run(host=server_ip, port=server_port)
+
+if __name__ == '__main__':
+    main(argv)
