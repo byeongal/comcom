@@ -1,6 +1,6 @@
 version: '3'
 services:
   comcom:
-    image: comcom
+    image: byeongal/comcom:first
     ports:
-      - "5000:5000"
+      - "25000:5000"

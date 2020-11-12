@@ -38,7 +38,7 @@ python server.py --ip=<0.0.0.0> --port=<5000>
 
 ex) http://203.246.112.132:25000/input=13195
 
-### 사용법(도커)
+### 사용법(도커이미지)
 1. Dockerfile을 다운로드 받는다.
 ```shell
 wget https://github.com/byeongal/comcom/blob/main/Dockerfile
@@ -54,7 +54,13 @@ docker build -t comcom
 docker run --rm -d -p <serverport>:5000 comcom
 ```
 
+### 사용법(도커컴포즈)
+1. 도커 컴포즈 파일을 다운로드 받는다.
 ```shell
 wget https://github.com/byeongal/comcom/blob/main/docker-compose.yml
-docker-compose up -d 
 ```
+
+2. 도커 컴포즈 파일을 실행 한다.
+```shell
+docker-compose up -d
+``` 
