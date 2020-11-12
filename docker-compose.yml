@@ -3,4 +3,4 @@ services:
   comcom:
     image: byeongal/comcom:first
     ports:
-      - "25000:5000"
+      - "5000:5000"
