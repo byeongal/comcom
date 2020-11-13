@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: comcom-rc
+spec:
+  replicas: 3
+  selector:
+    app: comcom
+  template:
+    metadata:
+      name: comcom-pod
+      labels:
+        app: comcom
+    spec:
+      containers:
+      - name: comcom
+        image: byeongal/comcom:first
+        ports:
+        - containerPort: 5000
