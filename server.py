@@ -23,7 +23,7 @@ def hello_user():
     <body>
         <p>How to Use</p>
         <p>http://serverip:serverport/input=number</p>
-        <p>ex) http://203.246.112.132:25000/input=12345</p>
+        <p>ex) http://35.185.172.168/input=12345</p>
     </body>
     """
     return html

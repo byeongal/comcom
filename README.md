@@ -36,12 +36,12 @@ python server.py --ip=<0.0.0.0> --port=<5000>
 
 3. 웹브라우저에서 설정한 IP와 PORT에 맞게 접속을 하고 / 뒤에 소인수 분해할 숫자를 넣어준다.
 
-ex) http://203.246.112.132:25000/input=13195
+ex) http://35.185.172.168/input=12345
 
 ### 사용법(도커이미지)
 1. Dockerfile을 다운로드 받는다.
 ```shell
-wget https://github.com/byeongal/comcom/blob/main/Dockerfile
+wget https://raw.githubusercontent.com/byeongal/comcom/main/Dockerfile
 ```
 
 2. Dockerfile을 빌드 한다.
@@ -57,10 +57,36 @@ docker run --rm -d -p <serverport>:5000 comcom
 ### 사용법(도커컴포즈)
 1. 도커 컴포즈 파일을 다운로드 받는다.
 ```shell
-wget https://github.com/byeongal/comcom/blob/main/docker-compose.yml
+wget https://raw.githubusercontent.com/byeongal/comcom/main/docker-compose.yml
 ```
 
 2. 도커 컴포즈 파일을 실행 한다.
 ```shell
 docker-compose up -d
 ``` 
+
+#### 사용법(쿠버네티스)
+1. Replication Controller를 등록 한다.
+```shell
+wget https://raw.githubusercontent.com/byeongal/comcom/main/comcom-rc.yaml
+kubectl create -f hello-node-rc.yam
+``` 
+
+2. Service를 등록 한다.
+```shell
+wget https://github.com/byeongal/comcom/blob/main/comcom-lc.yaml
+kubectl create -f hello-node-lc.yam
+``` 
+
+3. 생성된 서비스의 외부 아이피를 확인 한다.
+```shell
+kubectl get svc
+C:\byeongal\comcom>kubectl get svc
+NAME         TYPE           CLUSTER-IP   EXTERNAL-IP      PORT(S)        AGE
+comcom-svc   LoadBalancer   10.4.6.193   35.185.172.168   80:30385/TCP   58s
+kubernetes   ClusterIP      10.4.0.1     <none>           443/TCP        25m
+```
+
+4. 외부 아이피로 접속을 한다.
+
+ex) http://35.185.172.168/input=12345
